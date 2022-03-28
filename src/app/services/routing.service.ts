@@ -1,3 +1,4 @@
+import { ROUTES } from '../enums/routes.enum';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 
@@ -8,8 +9,8 @@ export class RoutingService {
 
   constructor(private router: Router) { }
 
-  public navigateToUsersTable(): void {
-    this.router.navigateByUrl('users');
+  public navigateToCreateUser(): void {
+      this.router.navigateByUrl(ROUTES.USERS);
   }
 
 }

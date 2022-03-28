@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import { RoutingService } from './services/routing.service';
 
 @Component({
   selector: 'exads-root',
@@ -8,7 +7,6 @@ import { RoutingService } from './services/routing.service';
 })
 export class AppComponent {
 
-  constructor(private routingService: RoutingService){
-      this.routingService.navigateToUsersTable();
+  constructor() {
   }
 }

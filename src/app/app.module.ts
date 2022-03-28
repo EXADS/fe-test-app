@@ -5,11 +5,13 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { UsersTableComponent } from './components/users-table/users-table.component';
+import { CreateUserComponent } from './components/create-user/create-user.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    UsersTableComponent
+    UsersTableComponent,
+    CreateUserComponent
     ],
   imports: [
     BrowserModule,
