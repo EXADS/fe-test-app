@@ -1,4 +1,6 @@
+import { UserService } from './../../services/user.service';
 import { Component, OnInit } from '@angular/core';
+import { User } from 'src/app/models/user.model';
 
 @Component({
   selector: 'exads-users-table',
@@ -7,9 +9,15 @@ import { Component, OnInit } from '@angular/core';
 })
 export class UsersTableComponent implements OnInit {
 
-  constructor() { }
+  public users: User[] = [];
+
+  constructor(private userService: UserService) { }
 
   ngOnInit() {
+    this.userService.getUsers().toPromise().then((users: User[]) => {
+      debugger;
+      this.users = users;
+    }).catch((err) => console.error(err));
   }
 
 }
