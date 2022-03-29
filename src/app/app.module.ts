@@ -7,6 +7,7 @@ import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { UsersTableComponent } from './components/users-table/users-table.component';
 import { CreateUserComponent } from './components/create-user/create-user.component';
+import { NgxDatatableModule } from '@swimlane/ngx-datatable';
 
 @NgModule({
   declarations: [
@@ -18,7 +19,8 @@ import { CreateUserComponent } from './components/create-user/create-user.compon
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
-    HttpClientModule
+    HttpClientModule,
+    NgxDatatableModule
   ],
   providers: [],
   bootstrap: [AppComponent]

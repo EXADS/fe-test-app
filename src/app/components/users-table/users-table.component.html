@@ -1,1 +1,58 @@
-<p>users-table works!</p>
+<div class="user-table-container">
+  <ngx-datatable class="material striped"
+  [rows]="rows"
+  [columnMode]="columnMode"
+  [headerHeight]="50"
+  [footerHeight]="25"
+  rowHeight="40"
+  [limit]="20"
+  [messages]="messages">
+  <ngx-datatable-column>
+    <ng-template let-column="column" ngx-datatable-header-template>
+      users.table.username
+       </ng-template>
+    <ng-template let-row="row" ngx-datatable-cell-template>
+        {{row.username}}
+    </ng-template>
+</ngx-datatable-column>
+
+<ngx-datatable-column>
+  <ng-template let-column="column" ngx-datatable-header-template>
+    USERS.TABLE.FULLNAME
+     </ng-template>
+  <ng-template let-row="row" ngx-datatable-cell-template>
+      {{row.first_name}} {{row.last_name}}
+  </ng-template>
+</ngx-datatable-column>
+
+<ngx-datatable-column>
+  <ng-template let-column="column" ngx-datatable-header-template>
+    USERS.TABLE.EMAIL
+     </ng-template>
+  <ng-template let-row="row" ngx-datatable-cell-template>
+      {{row.email}}
+  </ng-template>
+</ngx-datatable-column>
+
+<ngx-datatable-column>
+  <ng-template let-column="column" ngx-datatable-header-template>
+    USERS.TABLE.STATUS
+     </ng-template>
+  <ng-template let-row="row" ngx-datatable-cell-template>
+    <div [ngClass]="{'active': row.id_status == 1, 'disabled': row.id_status == 3}" >
+      {{row.id_status == 1 ? 'USERS.ACTIVE' : row.id_status == 3 ? 'USERS.DISABLED' : ''}}
+    </div>
+  </ng-template>
+</ngx-datatable-column>
+
+<ngx-datatable-column>
+  <ng-template let-column="column" ngx-datatable-header-template>
+    USERS.TABLE.CREATED_DATE
+     </ng-template>
+  <ng-template let-row="row" ngx-datatable-cell-template>
+      {{row.created_date  | date:'yyyy-mm-dd'}}
+  </ng-template>
+</ngx-datatable-column>
+
+</ngx-datatable>
+</div>

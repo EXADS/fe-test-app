@@ -16,6 +16,6 @@ export class UserService {
 
   public getUsers(): Observable<User[]> {
     return this.http.get<UsersResponse>(environment.apiBaseUrl + '/' + API_ROUTES.USERS)
-    .pipe(map((response: UsersResponse) => {debugger; return response.data.users}));
+    .pipe(map((response: UsersResponse) => {return response.data.users}));
   }
 }
