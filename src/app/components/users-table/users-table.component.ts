@@ -1,3 +1,4 @@
+import { RoutingService } from './../../services/routing.service';
 import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
 import { User } from 'src/app/models/user.model';
 import { UserService } from './../../services/user.service';
@@ -13,7 +14,8 @@ export class UsersTableComponent implements OnInit, AfterViewInit {
   public readonly displayedColumns = ['username', 'fullname', 'email', 'status', 'created'];
   public dataSource = new MatTableDataSource<User>();
   @ViewChild(MatPaginator, {static: false}) paginator: MatPaginator;
-  constructor(private userService: UserService) { }
+  constructor(private userService: UserService,
+    private routingService: RoutingService) { }
 
   ngAfterViewInit(): void {
     this.dataSource.paginator = this.paginator;
@@ -23,6 +25,10 @@ export class UsersTableComponent implements OnInit, AfterViewInit {
     this.userService.getUsers().toPromise().then((users: User[]) => {
       this.dataSource.data = users;
     }).catch((err) => console.error(err));
+  }
+
+  public navigateToCreateUser(): void {
+    this.routingService.navigateToCreateUser();
   }
 
 }

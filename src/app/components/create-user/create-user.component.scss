@@ -1,0 +1,37 @@
+h2 {
+  margin-top: 50px;
+  margin-left: 30px;
+  text-transform: capitalize;
+}
+.main-container {
+  background-color: rgb(231, 231, 231);
+  height: 100vh;
+
+  .container-inner {
+    margin-left: 30px;
+    margin-right: 30px;
+    padding: 20px;
+    background-color: white;
+  }
+}
+.inputs {
+  flex-grow: 1;
+}
+
+.buttons {
+  margin-left: 10px;
+  margin-right: 10px;
+}
+
+mat-form-field {
+  padding-left: 10px;
+  padding-right: 10px;
+  width: 100%;
+}
+
+::ng-deep label.mat-form-field-label {
+
+  span {
+    text-transform: capitalize !important;
+  }
+}

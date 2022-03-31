@@ -1,5 +1,6 @@
 <div class="user-table-container">
-  <mat-table class="material striped" #usersTable [dataSource]="dataSource">
+<button color="primary" mat-raised-button style="margin: 20px;" (click)="navigateToCreateUser()">BUTTON.CREATE_USER</button>
+  <mat-table class="" #usersTable [dataSource]="dataSource">
     <ng-container matColumnDef="username">
       <mat-header-cell *matHeaderCellDef>USERS.TABLE.USERNAME</mat-header-cell>
       <mat-cell *matCellDef="let element">
@@ -47,9 +48,11 @@
   <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
   <mat-row *matRowDef="let row; columns: displayedColumns;" class="red"></mat-row>
   </mat-table>
+
   <mat-paginator #paginator
   [pageSize]="20"
   [pageSizeOptions]="[5, 10, 20]"
   [showFirstLastButtons]="true">
 </mat-paginator>
+
 </div>

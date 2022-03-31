@@ -18,4 +18,8 @@ export class UserService {
     return this.http.get<UsersResponse>(environment.apiBaseUrl + '/' + API_ROUTES.USERS)
     .pipe(map((response: UsersResponse) => {return response.data.users}));
   }
+
+  public postUser(newUser: User): Observable<any> {
+    return this.http.post<User>(environment.apiBaseUrl + '/' + API_ROUTES.USERS, newUser);
+  }
 }

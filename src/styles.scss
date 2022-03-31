@@ -1,3 +1,9 @@
+// angular material theming
 @import '../node_modules/@swimlane/ngx-datatable/src/themes/material.scss';
+@import "~@angular/material/prebuilt-themes/indigo-pink.css";
+// project specific global stylings
+@import "global-styling/variables.scss";
+@import "global-styling/flex.scss";
+
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }

@@ -10,7 +10,7 @@ export class RoutingService {
   constructor(private router: Router) { }
 
   public navigateToCreateUser(): void {
-      this.router.navigateByUrl(APP_ROUTES.USERS);
+      this.router.navigateByUrl(APP_ROUTES.CREATE_USER);
   }
 
 }

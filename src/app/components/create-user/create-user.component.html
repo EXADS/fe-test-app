@@ -1,1 +1,29 @@
-<p>create-user works!</p>
+<div class="main-container flex column">
+  <h2>CREATE_USER.TITLE</h2>
+  <div class="container-inner flex column">
+    <div class="inputs flex column">
+      <form action="" [formGroup]="newUserForm">
+        <mat-form-field>
+          <input matInput placeholder="{{'INPUT.PLACEHOLDER.USER_NAME'}}" required>
+        </mat-form-field>
+        <div class="names flex space-between sm-column">
+          <mat-form-field>
+            <input matInput placeholder="{{'INPUT.PLACEHOLDER.FIRST_NAME'}}" required>
+          </mat-form-field>
+          <mat-form-field>
+            <input matInput placeholder="{{'INPUT.PLACEHOLDER.LAST_NAME'}} {{'INPUT.OPTIONAL'}}">
+          </mat-form-field>
+        </div>
+        <mat-form-field>
+          <input matInput placeholder="{{'INPUT.PLACEHOLDER.EMAIL'}}" [formControl]="email" required>
+          <mat-error *ngIf="email.invalid">{{'FORM.USER.INVALID_INPUT'}}</mat-error>
+        </mat-form-field>
+      </form>
+    </div>
+  </div>
+  <div class="buttons flex space-between">
+    <button color="primary" mat-raised-button style="margin: 20px;" (click)="cancel()">BUTTON.CANCEL</button>
+    <button color="primary" mat-raised-button style="margin: 20px;" (click)="addNewUser()">BUTTON.ADD_NEW_USER</button>
+
+  </div>
+</div>

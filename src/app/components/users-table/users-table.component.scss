@@ -13,8 +13,12 @@
 }
 
 .mat-row {
-  min-height: 10px;
+  min-height: 20px;
 }
 .mat-row:nth-child(even) {
   background-color: #f1f1f1;
 }
+
+// .mat-column-created {
+//   flex: 0 0 35% !important;
+// }
