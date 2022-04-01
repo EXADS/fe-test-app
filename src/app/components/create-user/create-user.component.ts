@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { emailValidator } from 'src/app/validators/email.validator';
 import { userNameValidator } from 'src/app/validators/user-name-validator';
 import { UserRequest } from './../../requests/user.request';
 import { UsersResponse } from './../../responses/users.response';
@@ -18,10 +19,9 @@ export class CreateUserComponent {
     firstName: new FormControl('', [Validators.required]),
     lastName: new FormControl('', []),
     userName: new FormControl('', [Validators.required, Validators.maxLength(20), Validators.minLength(3), userNameValidator()]),
-    email: new FormControl('', [Validators.required, Validators.email,])
+    email: new FormControl('', [Validators.required, emailValidator()])
   });;
 
-  email = new FormControl('', [Validators.required, Validators.email]);
   constructor(private userService: UserService, private routingService: RoutingService) { }
 
   public cancel(): void {

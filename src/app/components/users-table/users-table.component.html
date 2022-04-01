@@ -1,5 +1,11 @@
 <div class="user-table-container">
 <button color="primary" mat-raised-button style="margin: 20px;" (click)="navigateToCreateUser()">BUTTON.CREATE_USER</button>
+<mat-paginator #paginator
+[pageSize]="20"
+[pageSizeOptions]="[5, 10, 20]"
+[showFirstLastButtons]="false"
+[hidePageSize]="false">
+</mat-paginator>
   <mat-table class="" #usersTable [dataSource]="dataSource">
     <ng-container matColumnDef="username">
       <mat-header-cell *matHeaderCellDef>USERS.TABLE.USERNAME</mat-header-cell>
@@ -48,11 +54,5 @@
   <mat-header-row *matHeaderRowDef="isMobile ? mobileColumns : fullScreenColumns"></mat-header-row>
   <mat-row *matRowDef="let row; columns: isMobile ? mobileColumns : fullScreenColumns;" class="red"></mat-row>
   </mat-table>
-
-  <mat-paginator #paginator *ngIf="!isMobile"
-  [pageSize]="20"
-  [pageSizeOptions]="[5, 10, 20]"
-  [showFirstLastButtons]="true">
-</mat-paginator>
 
 </div>

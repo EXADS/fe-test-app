@@ -21,7 +21,7 @@
         </div>
         <mat-form-field>
           <input matInput placeholder="{{'INPUT.PLACEHOLDER.EMAIL'}}" formControlName="email">
-          <mat-error *ngIf="email.invalid">{{'FORM.USER.INVALID_INPUT'}}</mat-error>
+          <mat-error *ngIf="checkForError('email', 'invalidEmail')">{{'FORM.USER.INVALID_INPUT'}}</mat-error>
           <mat-error *ngIf="checkForError('email', 'required')">{{'INPUT.VALIDATION.EMAIL_REQUIRED'}}</mat-error>
           <mat-error *ngIf="checkForError('email', 'maxlength')">{{'INPUT.VALIDATION.TOO_LONG'}}</mat-error>
         </mat-form-field>

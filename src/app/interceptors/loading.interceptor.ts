@@ -17,7 +17,7 @@ export class LoadingInterceptor implements HttpInterceptor {
       .pipe(
         map((event) => {
           if(event && event.hasOwnProperty('url')){
-            this.loadingService.setLoading(false);
+            this.loadingService.setLoading(false)
           }
           return event;
         })
