@@ -1,3 +1,4 @@
+import { Observable } from 'rxjs';
 import { RoutingService } from './../../services/routing.service';
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
@@ -40,10 +41,6 @@ export class CreateUserComponent implements OnInit {
       });
   }
 
-  public invalidData(): boolean {
-    return true;
-  }
-
   public checkForError(controlName: string, errorName: string): boolean {
     return this.newUserForm.controls[controlName].hasError(errorName);
   }
@@ -51,5 +48,9 @@ export class CreateUserComponent implements OnInit {
   public getErrors(controlName: string): void {
     console.log("errors for: ", controlName);
     console.log(this.newUserForm.controls[controlName].errors);
+  }
+
+  public checkIfUsernameExists(userName: string): Observable<boolean> {
+    return this.userService.getByUsername(userName);
   }
 }
