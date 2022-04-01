@@ -45,8 +45,8 @@
   </ng-container>
 
 
-  <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
-  <mat-row *matRowDef="let row; columns: displayedColumns;" class="red"></mat-row>
+  <mat-header-row *matHeaderRowDef="isMobile ? mobileColumns : fullScreenColumns"></mat-header-row>
+  <mat-row *matRowDef="let row; columns: isMobile ? mobileColumns : fullScreenColumns;" class="red"></mat-row>
   </mat-table>
 
   <mat-paginator #paginator
