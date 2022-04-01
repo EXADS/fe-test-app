@@ -1,7 +1,7 @@
-import { HttpEvent, HttpHandler, HttpInterceptor, HttpRequest } from '@angular/common/http';
+import { HttpEvent, HttpHandler, HttpInterceptor, HttpRequest, HttpResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { tap } from 'rxjs/operators';
+import { tap, map } from 'rxjs/operators';
 import { LoadingService } from './../services/loading.service';
 
 
@@ -15,9 +15,11 @@ export class LoadingInterceptor implements HttpInterceptor {
     this.loadingService.setLoading(true);
     return next.handle(req)
       .pipe(
-        tap(event => {
-          debugger;
-          this.loadingService.setLoading(false);
+        map((event) => {
+          if(event && event.hasOwnProperty('url')){
+            this.loadingService.setLoading(false);
+          }
+          return event;
         })
       );
 
