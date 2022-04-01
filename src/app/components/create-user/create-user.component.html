@@ -2,28 +2,35 @@
   <h2>CREATE_USER.TITLE</h2>
   <div class="container-inner flex column">
     <div class="inputs flex column">
-      <form action="" [formGroup]="newUserForm">
+      <form [formGroup]="newUserForm">
         <mat-form-field>
-          <input matInput placeholder="{{'INPUT.PLACEHOLDER.USER_NAME'}}" required>
+          <input matInput placeholder="{{'INPUT.PLACEHOLDER.USER_NAME'}}" (keyup)="getErrors('userName')" formControlName="userName">
+          <mat-error *ngIf="checkForError('userName', 'required')">{{'INPUT.VALIDATION.REQUIRED'}}</mat-error>
+            <mat-error *ngIf="checkForError('userName', 'maxlength')">{{'INPUT.VALIDATION.TOO_LONG'}}</mat-error>
+            <mat-error *ngIf="checkForError('userName', 'invalidCharacter')">{{'INPUT.VALIDATION.INVALID_CHARACTER'}}</mat-error>
         </mat-form-field>
-        <div class="names flex space-between sm-column">
-          <mat-form-field>
-            <input matInput placeholder="{{'INPUT.PLACEHOLDER.FIRST_NAME'}}" required>
+        <div class="flex space-between sm-column">
+          <mat-form-field id="first-name">
+            <input matInput placeholder="{{'INPUT.PLACEHOLDER.FIRST_NAME'}}" formControlName="firstName">
+            <mat-error *ngIf="checkForError('email', 'required')">{{'INPUT.VALIDATION.REQUIRED'}}</mat-error>
+            <mat-error *ngIf="checkForError('email', 'maxlength')">{{'INPUT.VALIDATION.TOO_LONG'}}</mat-error>
           </mat-form-field>
           <mat-form-field>
-            <input matInput placeholder="{{'INPUT.PLACEHOLDER.LAST_NAME'}} {{'INPUT.OPTIONAL'}}">
+            <input matInput placeholder="{{'INPUT.PLACEHOLDER.LAST_NAME'}} {{'INPUT.OPTIONAL'}}" formControlName="lastName">
           </mat-form-field>
         </div>
         <mat-form-field>
-          <input matInput placeholder="{{'INPUT.PLACEHOLDER.EMAIL'}}" [formControl]="email" required>
+          <input matInput placeholder="{{'INPUT.PLACEHOLDER.EMAIL'}}" formControlName="email">
           <mat-error *ngIf="email.invalid">{{'FORM.USER.INVALID_INPUT'}}</mat-error>
+          <mat-error *ngIf="checkForError('email', 'required')">{{'INPUT.VALIDATION.EMAIL_REQUIRED'}}</mat-error>
+          <mat-error *ngIf="checkForError('email', 'maxlength')">{{'INPUT.VALIDATION.TOO_LONG'}}</mat-error>
         </mat-form-field>
       </form>
     </div>
   </div>
   <div class="buttons flex space-between">
     <button color="primary" mat-raised-button style="margin: 20px;" (click)="cancel()">BUTTON.CANCEL</button>
-    <button color="primary" mat-raised-button style="margin: 20px;" (click)="addNewUser()">BUTTON.ADD_NEW_USER</button>
+    <button color="primary" formaction mat-raised-button style="margin: 20px;" (click)="addNewUser()" [disabled]="invalidData()">BUTTON.ADD_NEW_USER</button>
 
   </div>
 </div>
