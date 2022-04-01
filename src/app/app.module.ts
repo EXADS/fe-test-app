@@ -1,22 +1,23 @@
-import { HttpClient, HttpClientModule } from '@angular/common/http';
-import { BrowserModule } from '@angular/platform-browser';
+import { LoadingInterceptor } from './interceptors/loading.interceptor';
+import { HttpClientModule, HTTP_INTERCEPTORS, HttpInterceptor } from '@angular/common/http';
 import { NgModule } from '@angular/core';
-
+import { ReactiveFormsModule } from '@angular/forms';
+import { MatFormFieldModule, MatInputModule, MatPaginatorModule, MatProgressBarModule, MatSelectModule, MatTableModule, MatToolbarModule } from '@angular/material';
+import { MatButtonModule } from '@angular/material/button';
+import { BrowserModule } from '@angular/platform-browser';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { UsersTableComponent } from './components/users-table/users-table.component';
 import { CreateUserComponent } from './components/create-user/create-user.component';
-import { MatFormFieldModule, MatInput, MatInputModule, MatPaginatorModule, MatSelect, MatSelectModule, MatTableModule } from '@angular/material';
-import { MatButtonModule } from '@angular/material/button';
-import { ReactiveFormsModule } from '@angular/forms';
+import { UsersTableComponent } from './components/users-table/users-table.component';
+
 
 @NgModule({
   declarations: [
     AppComponent,
     UsersTableComponent,
     CreateUserComponent
-    ],
+  ],
   imports: [
     BrowserModule,
     AppRoutingModule,
@@ -28,9 +29,13 @@ import { ReactiveFormsModule } from '@angular/forms';
     MatFormFieldModule,
     MatInputModule,
     MatSelectModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    MatToolbarModule,
+    MatProgressBarModule
   ],
-  providers: [],
+  providers: [
+    { provide: HTTP_INTERCEPTORS, useClass: LoadingInterceptor, multi: true }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
