@@ -18,7 +18,6 @@ export class AppComponent implements AfterViewInit, OnDestroy {
     setTimeout(() => {
       this.subscriptions.push(
         this.loadingService.loading().subscribe((loading) => {
-          debugger;
           this.isLoading = loading;
         })
       );

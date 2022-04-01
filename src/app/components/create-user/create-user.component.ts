@@ -30,7 +30,6 @@ export class CreateUserComponent {
 
   public addNewUser(): void {
     this.userService.getByUsername(this.newUserForm.get("userName").value).toPromise().then((result: UsersResponse) => {
-      debugger;
       if (result && result.data && result.data.count > 0) {
         // abort, with user exists warning
       } else {
