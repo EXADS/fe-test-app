@@ -23,10 +23,11 @@ export class UserService {
     return this.http.post<User>(environment.apiBaseUrl + '/' + API_ROUTES.USERS, newUser);
   }
 
-  public getByUsername(username: string): Observable<any> {
+  public getByUsername(username: string): Observable<UsersResponse> {
+    //?username = {{ username }
     let queryParams = new HttpParams();
     queryParams = queryParams.append("username", username);
-    return this.http.get(environment.apiBaseUrl + '/' + API_ROUTES.USERS,{params:queryParams})
+    return this.http.get<UsersResponse>(environment.apiBaseUrl + '/' + API_ROUTES.USERS,{params:queryParams})
 
   }
 }

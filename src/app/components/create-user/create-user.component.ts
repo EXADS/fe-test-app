@@ -1,3 +1,4 @@
+import { UsersResponse } from './../../responses/users.response';
 import { Observable } from 'rxjs';
 import { RoutingService } from './../../services/routing.service';
 import { Component, OnInit } from '@angular/core';
@@ -33,6 +34,24 @@ export class CreateUserComponent implements OnInit {
   }
 
   public addNewUser(): void {
+    const userForPost = {
+      firstName: this.newUserForm.get("firstName").value,
+      lastName: this.newUserForm.get("lastName").value,
+      userName: this.newUserForm.get("userName").value,
+      email: this.newUserForm.get("email").value
+    }
+    this.userService.getByUsername(userForPost.userName).toPromise().then((result: UsersResponse) => {
+      if (result && result.data && result.data.count > 0) {
+        // abort, with user exists warning
+      } else {
+        this.postUser(userForPost);
+      }
+    }).catch((err) => {
+      // show error toast
+    });
+  }
+
+  private postUser(userForPost: { firstName: any; lastName: any; userName: any; email: any; }) {
     this.userService.postUser(this.newUser).toPromise().then((success) => {
       // display toast
     },
@@ -43,14 +62,5 @@ export class CreateUserComponent implements OnInit {
 
   public checkForError(controlName: string, errorName: string): boolean {
     return this.newUserForm.controls[controlName].hasError(errorName);
-  }
-
-  public getErrors(controlName: string): void {
-    console.log("errors for: ", controlName);
-    console.log(this.newUserForm.controls[controlName].errors);
-  }
-
-  public checkIfUsernameExists(userName: string): Observable<boolean> {
-    return this.userService.getByUsername(userName);
   }
 }
