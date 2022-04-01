@@ -1,4 +1,5 @@
-export class User {
+import { IUser } from 'src/app/interfaces/user.interface';
+export class User implements IUser {
   public id: number;
   public first_name: string;
   public last_name: string;

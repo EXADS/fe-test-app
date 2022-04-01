@@ -1,3 +1,4 @@
+import { UserRequest } from './../requests/user.request';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
@@ -19,8 +20,8 @@ export class UserService {
       .pipe(map((response: UsersResponse) => { return response.data.users }));
   }
 
-  public postUser(newUser: User): Observable<any> {
-    return this.http.post<User>(environment.apiBaseUrl + '/' + API_ROUTES.USERS, newUser);
+  public postUser(newUser: UserRequest): Observable<any> {
+    return this.http.post<User>(environment.apiBaseUrl + '/' + API_ROUTES.USERS, {user: newUser});
   }
 
   public getByUsername(username: string): Observable<UsersResponse> {
