@@ -4,6 +4,7 @@
 // project specific global stylings
 @import "global-styling/variables.scss";
 @import "global-styling/flex.scss";
+@import "global-styling/snackbar.scss";
 
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }

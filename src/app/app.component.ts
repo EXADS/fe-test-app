@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, OnDestroy } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { LoadingService } from './services/loading.service';
 
@@ -7,21 +7,23 @@ import { LoadingService } from './services/loading.service';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
 })
-export class AppComponent implements AfterViewInit, OnDestroy {
+export class AppComponent implements OnInit, OnDestroy {
 
   private subscriptions: Subscription[] = [];
   public isLoading: boolean = false;
   constructor(public loadingService: LoadingService) {
   }
-  ngAfterViewInit(): void {
-    // short timeout to prevent ExpressionChanged errors
-    setTimeout(() => {
-      this.subscriptions.push(
-        this.loadingService.loading().subscribe((loading) => {
+  ngOnInit(): void {
+    this.subscriptions.push(
+      this.loadingService.loading().subscribe((loading) => {
+        // use short timeout to prevent ExpressionChangedAfterItHasBeenCheckedError
+        setTimeout(() => {
           this.isLoading = loading;
-        })
-      );
-    }, 100)
+        }, 100)
+      })
+    );
+  }
+  ngAfterViewInit(): void {
   }
 
   ngOnDestroy(): void {

@@ -2,7 +2,7 @@ import { LoadingInterceptor } from './interceptors/loading.interceptor';
 import { HttpClientModule, HTTP_INTERCEPTORS, HttpInterceptor } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
-import { MatFormFieldModule, MatInputModule, MatPaginatorIntl, MatPaginatorModule, MatProgressBarModule, MatSelectModule, MatTableModule, MatToolbarModule } from '@angular/material';
+import { MatFormFieldModule, MatInputModule, MatPaginatorIntl, MatPaginatorModule, MatProgressBarModule, MatSelectModule, MatSnackBarModule, MatTableModule, MatToolbarModule } from '@angular/material';
 import { MatButtonModule } from '@angular/material/button';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -32,7 +32,8 @@ import { CustomMatPagerIntl } from './mat-helpers/custom-mat-pager-intl';
     MatSelectModule,
     ReactiveFormsModule,
     MatToolbarModule,
-    MatProgressBarModule
+    MatProgressBarModule,
+    MatSnackBarModule
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: LoadingInterceptor, multi: true },
