@@ -15,6 +15,7 @@ import { UsersResponse } from 'src/app/responses/users.response';
 import { UserRequest } from './../../requests/user.request';
 import { UserService } from './../../services/user.service';
 import { UsersTableComponent } from './users-table.component';
+import { fakeAsync, tick, discardPeriodicTasks } from '@angular/core/testing';
 
 
 describe('UsersTableComponent', () => {
@@ -48,7 +49,7 @@ describe('UsersTableComponent', () => {
         MatInputModule, MatPaginatorModule, MatTableModule, MatButtonModule],
       declarations: [UsersTableComponent],
       providers: [{ provide: UserService, useValue: mockUserService }, { provide: MatSnackBar, useValue: mockSnackbarMock },
-                  { provide: RoutingService, useValue: mockRoutingService }]
+      { provide: RoutingService, useValue: mockRoutingService }]
     })
       .compileComponents();
   }));
@@ -119,17 +120,17 @@ describe('UsersTableComponent', () => {
   });
 
 
-  it('it should adjust paginator position on page event', () => {
+  it('it should adjust paginator position on page event', fakeAsync(() => {
     spyOn(app, 'handlePageEvent').and.callThrough();
     var calculateFunction = spyOn<any>(app, 'calculateNewBottom').and.callThrough();
     const pageEvent = new PageEvent();
     pageEvent.pageSize = 10;
     app.paginator.page.emit(pageEvent);
     expect(app.handlePageEvent).toHaveBeenCalled();
-    setTimeout(() => {
-      expect(calculateFunction).toHaveBeenCalled();
-      expect(calculateFunction).toEqual((app.userTableContainer.nativeElement.offsetHeight + 64 + 40) + 'px')
-    }, 100)
-  });
+    tick(100);
+    expect(calculateFunction).toHaveBeenCalled();
+    const rangeActions = fixture.debugElement.query(By.css('.mat-paginator-range-actions'))
+    expect(rangeActions.nativeElement.style.bottom).toEqual((window.innerHeight - (app.userTableContainer.nativeElement.offsetHeight + 64 + 40)) + 'px');
+  }));
 
 });
