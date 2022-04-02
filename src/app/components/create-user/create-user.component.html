@@ -30,7 +30,7 @@
   </div>
   <div class="buttons flex space-between">
     <button color="primary" mat-raised-button style="margin: 20px;" (click)="cancel()">BUTTON.CANCEL</button>
-    <button color="primary" formaction mat-raised-button style="margin: 20px;" (click)="addNewUser()" [disabled]="!userForm.form.valid">BUTTON.ADD_NEW_USER</button>
+    <button color="primary" formaction mat-raised-button style="margin: 20px;" (click)="addNewUser()" id="btn-add-user" [disabled]="!userForm.form.valid">{{'BUTTON.ADD_NEW_USER'}}</button>
 
   </div>
 </div>

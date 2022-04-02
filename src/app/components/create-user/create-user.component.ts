@@ -34,16 +34,21 @@ export class CreateUserComponent {
     this.userService.getByUsername(this.newUserForm.get("userName").value).toPromise().then((result: UsersResponse) => {
       if (result && result.data && result.data.count > 0) {
         this.snackBar.open("TOAST.ERROR.USERNAME_TAKEN", '', { duration: 10000 , panelClass: 'warn'});
-      } else {
+      } else if(result && result.data && result.data.count === 0) {
         this.assignDataToNewUser();
         this.postUser();
+      } else {
+        this.snackBar.open('TOAST.ERROR.UNKOWN', '', { duration: 10000, panelClass: 'error' });
+        console.error("something went wrong");
       }
     }).catch((err: Error) => {
       console.error(err)
       this.snackBar.open(err.message, '', { duration: 10000, panelClass: 'error' });
     });
   }
+
   public assignDataToNewUser(): void {
+    debugger;
     this.newUser.first_name = this.newUserForm.get("firstName").value;
     this.newUser.last_name = this.newUserForm.get("lastName").value;
     this.newUser.username = this.newUserForm.get("userName").value;
