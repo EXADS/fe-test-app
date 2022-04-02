@@ -1,3 +1,4 @@
+import { MatToolbarModule, MatProgressBarModule } from '@angular/material';
 import { TestBed, async } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 import { AppComponent } from './app.component';
@@ -6,7 +7,9 @@ describe('AppComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       imports: [
-        RouterTestingModule
+        RouterTestingModule,
+        MatToolbarModule,
+        MatProgressBarModule
       ],
       declarations: [
         AppComponent
@@ -18,5 +21,11 @@ describe('AppComponent', () => {
     const fixture = TestBed.createComponent(AppComponent);
     const app = fixture.debugElement.componentInstance;
     expect(app).toBeTruthy();
+  });
+
+  it('should subscribe to loading events', () => {
+    const fixture = TestBed.createComponent(AppComponent);
+    const app = fixture.debugElement.componentInstance;
+    fixture.detectChanges();
   });
 });

@@ -1,3 +1,9 @@
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { RouterTestingModule } from '@angular/router/testing';
+import { HttpClientModule } from '@angular/common/http';
+import { MatButtonModule } from '@angular/material/button';
+import { MatInputModule, MatPaginatorModule, MatTableModule, MatSnackBarModule } from '@angular/material';
+import { UserService } from './../../services/user.service';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { UsersTableComponent } from './users-table.component';
@@ -8,7 +14,14 @@ describe('UsersTableComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ UsersTableComponent ]
+      imports: [
+        BrowserAnimationsModule,
+        HttpClientModule,
+        RouterTestingModule,
+        MatSnackBarModule,
+        MatInputModule, MatPaginatorModule, MatTableModule, MatButtonModule],
+      declarations: [ UsersTableComponent ],
+      providers: [UserService]
     })
     .compileComponents();
   }));
