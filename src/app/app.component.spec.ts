@@ -1,4 +1,4 @@
-import { async, TestBed } from '@angular/core/testing';
+import { async, TestBed, fakeAsync, tick } from '@angular/core/testing';
 import { MatProgressBarModule, MatToolbarModule } from '@angular/material';
 import { RouterTestingModule } from '@angular/router/testing';
 import { of, BehaviorSubject } from 'rxjs';
@@ -15,7 +15,6 @@ describe('AppComponent', () => {
       return _loading;
     });
     mockLoadingService.setLoading.and.callFake(function(loading:boolean){
-      //
       _loading.next(loading);
     });
     mockLoadingService.loading.and.callFake(function(){
@@ -51,7 +50,7 @@ describe('AppComponent', () => {
     expect(app.subscriptions[0].closed).toBeFalsy();
   });
 
-  it('it should update loading value', () => {
+  it('it should update loading value', (fakeAsync(() => {
     const fixture = TestBed.createComponent(AppComponent);
     const app = fixture.debugElement.componentInstance;
     const service = fixture.debugElement.injector.get(LoadingService);
@@ -59,8 +58,9 @@ describe('AppComponent', () => {
 
     expect(app.isLoading).toBe(false);
     service.setLoading(true);
-    setTimeout(()=> expect(app.isLoading).toBe(true), 150)
-  });
+    tick(150);
+    expect(app.isLoading).toBe(true);
+  })));
 
   it('it should unsubscribe on destroy', () => {
     const fixture = TestBed.createComponent(AppComponent);
