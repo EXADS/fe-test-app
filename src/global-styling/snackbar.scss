@@ -1,0 +1,13 @@
+snack-bar-container {
+  &.success{
+    color: #35f817;
+  }
+
+  &.warn {
+    color: #f27500;
+  }
+
+  &.error {
+    background-color: #f32c1e;
+  }
+}
