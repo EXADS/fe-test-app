@@ -7,7 +7,7 @@ import { LoadingService } from './services/loading.service';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
 })
-export class AppComponent implements OnInit, OnDestroy {
+export class AppComponent implements OnInit {
 
   private subscriptions: Subscription[] = [];
   public isLoading: boolean = false;
@@ -22,8 +22,6 @@ export class AppComponent implements OnInit, OnDestroy {
         }, 100)
       })
     );
-  }
-  ngAfterViewInit(): void {
   }
 
   ngOnDestroy(): void {

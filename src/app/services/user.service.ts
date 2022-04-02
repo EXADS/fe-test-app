@@ -25,11 +25,9 @@ export class UserService {
   }
 
   public getByUsername(username: string): Observable<UsersResponse> {
-    //?username = {{ username }
     let queryParams = new HttpParams();
     queryParams = queryParams.append("username", username);
     return this.http.get<UsersResponse>(environment.apiBaseUrl + '/' + API_ROUTES.USERS,{params:queryParams})
-
   }
 }
 
