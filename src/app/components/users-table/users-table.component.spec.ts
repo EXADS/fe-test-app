@@ -1,20 +1,20 @@
-import { HttpClientModule } from '@angular/common/http';
-import { async, ComponentFixture, TestBed, getTestBed } from '@angular/core/testing';
-import { MatInputModule, MatPaginatorModule, MatSnackBar, MatSnackBarModule, MatTableModule } from '@angular/material';
+import { RoutingService } from './../../services/routing.service';
+import { CreateUserComponent } from './../create-user/create-user.component';
+import {
+  HttpClientTestingModule
+} from '@angular/common/http/testing';
+import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { MatInputModule, MatPaginatorModule, MatSnackBar, MatSnackBarModule, MatTableModule, PageEvent } from '@angular/material';
 import { MatButtonModule } from '@angular/material/button';
+import { By } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterTestingModule } from '@angular/router/testing';
-import { of, Observable, throwError, Subscription } from 'rxjs';
+import { asyncScheduler, of, throwError } from 'rxjs';
 import { User } from 'src/app/models/user.model';
 import { UsersResponse } from 'src/app/responses/users.response';
 import { UserRequest } from './../../requests/user.request';
 import { UserService } from './../../services/user.service';
 import { UsersTableComponent } from './users-table.component';
-import {asyncScheduler} from "rxjs"
-import {
-  HttpClientTestingModule,
-  HttpTestingController
-} from '@angular/common/http/testing';
 
 
 describe('UsersTableComponent', () => {
@@ -25,11 +25,7 @@ describe('UsersTableComponent', () => {
   let mockUserData: User[] = [];
   let mockUserDataByUsername: UsersResponse;
   const mockSnackbarMock = jasmine.createSpyObj(['open']);
-
-  const dummyMatSnackBar = {
-    open(message: string, action: string, options: { duration: number, panelClass: string }) {
-    }
-  }
+  const mockRoutingService = jasmine.createSpyObj(['navigateToCreateUser']);
 
   beforeEach(() => {
     mockUserService.getUsers.and.callFake(function () {
@@ -48,11 +44,11 @@ describe('UsersTableComponent', () => {
       imports: [
         BrowserAnimationsModule,
         HttpClientTestingModule,
-        RouterTestingModule,
         MatSnackBarModule,
         MatInputModule, MatPaginatorModule, MatTableModule, MatButtonModule],
       declarations: [UsersTableComponent],
-      providers: [{ provide: UserService, useValue: mockUserService }, {provide: MatSnackBar, useValue: mockSnackbarMock}]
+      providers: [{ provide: UserService, useValue: mockUserService }, { provide: MatSnackBar, useValue: mockSnackbarMock },
+                  { provide: RoutingService, useValue: mockRoutingService }]
     })
       .compileComponents();
   }));
@@ -108,10 +104,32 @@ describe('UsersTableComponent', () => {
     });
     app.ngOnInit();
     expect(mockUserService.getUsers).toHaveBeenCalled();
-    await mockUserService.getUsers().subscribe(()=>{}, ()=>{
+    await mockUserService.getUsers().subscribe(() => { }, () => {
       expect(app.dataSource.data).toEqual([]);
       expect(mockSnackbarMock.open).toHaveBeenCalledWith('error', '', { duration: 10000, panelClass: 'error' });
     })
+  });
+
+  it('it should navigate to create user page', async () => {
+    const navigateButton = fixture.debugElement.query(By.css('#btn-nav-create-user'));
+    spyOn(app, 'navigateToCreateUser').and.callThrough();
+    navigateButton.triggerEventHandler('click', null);
+    expect(app.navigateToCreateUser).toHaveBeenCalled();
+    expect(mockRoutingService.navigateToCreateUser).toHaveBeenCalled();
+  });
+
+
+  it('it should adjust paginator position on page event', () => {
+    spyOn(app, 'handlePageEvent').and.callThrough();
+    var calculateFunction = spyOn<any>(app, 'calculateNewBottom').and.callThrough();
+    const pageEvent = new PageEvent();
+    pageEvent.pageSize = 10;
+    app.paginator.page.emit(pageEvent);
+    expect(app.handlePageEvent).toHaveBeenCalled();
+    setTimeout(() => {
+      expect(calculateFunction).toHaveBeenCalled();
+      expect(calculateFunction).toEqual((app.userTableContainer.nativeElement.offsetHeight + 64 + 40) + 'px')
+    }, 100)
   });
 
 });
