@@ -48,7 +48,6 @@ export class CreateUserComponent {
   }
 
   public assignDataToNewUser(): void {
-    debugger;
     this.newUser.first_name = this.newUserForm.get("firstName").value;
     this.newUser.last_name = this.newUserForm.get("lastName").value;
     this.newUser.username = this.newUserForm.get("userName").value;
