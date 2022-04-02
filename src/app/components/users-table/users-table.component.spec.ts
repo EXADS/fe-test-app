@@ -10,6 +10,7 @@ import { UsersResponse } from 'src/app/responses/users.response';
 import { UserRequest } from './../../requests/user.request';
 import { UserService } from './../../services/user.service';
 import { UsersTableComponent } from './users-table.component';
+import {asyncScheduler} from "rxjs"
 import {
   HttpClientTestingModule,
   HttpTestingController
@@ -23,6 +24,7 @@ describe('UsersTableComponent', () => {
   let mockUserService: jasmine.SpyObj<UserService> = jasmine.createSpyObj('UserService', ['getUsers', 'postUser', 'getByUsername'])
   let mockUserData: User[] = [];
   let mockUserDataByUsername: UsersResponse;
+  const mockSnackbarMock = jasmine.createSpyObj(['open']);
 
   const dummyMatSnackBar = {
     open(message: string, action: string, options: { duration: number, panelClass: string }) {
@@ -31,14 +33,13 @@ describe('UsersTableComponent', () => {
 
   beforeEach(() => {
     mockUserService.getUsers.and.callFake(function () {
-      return of(mockUserData)
+      return of(mockUserData, asyncScheduler)
     });
     mockUserService.postUser.and.callFake(function (newUser: UserRequest) {
-      //
       return of(undefined)
     });
     mockUserService.getByUsername.and.callFake(function (userName: string) {
-      return of(mockUserDataByUsername)
+      return of(mockUserDataByUsername, asyncScheduler)
     });
   });
 
@@ -51,7 +52,7 @@ describe('UsersTableComponent', () => {
         MatSnackBarModule,
         MatInputModule, MatPaginatorModule, MatTableModule, MatButtonModule],
       declarations: [UsersTableComponent],
-      providers: [{ provide: UserService, useValue: mockUserService }]
+      providers: [{ provide: UserService, useValue: mockUserService }, {provide: MatSnackBar, useValue: mockSnackbarMock}]
     })
       .compileComponents();
   }));
@@ -92,7 +93,6 @@ describe('UsersTableComponent', () => {
     expect(mockUserService.getUsers).toHaveBeenCalled();
     await mockUserService.getUsers().toPromise().then(() => {
       expect(app.dataSource.data).toEqual(mockUserData);
-      expect(app.subSucceeded).toEqual(true);
     })
   });
 
@@ -102,16 +102,16 @@ describe('UsersTableComponent', () => {
     expect(app.isMobile).toEqual(window.innerWidth <= 600);
   });
 
-  // it('it should show error on getUsers failure', async () => {
-  //   mockUserService.getUsers.and.callFake(function () {
-  //     return throwError({status: 500});
-  //   });
-  //   app.ngOnInit();
-  //   expect(mockUserService.getUsers).toHaveBeenCalled();
-  //   await mockUserService.getUsers().subscribe(()=>{}, ()=>{
-  //     expect(app.dataSource.data).toEqual([]);
-  //     expect(app.subFailed).toEqual(true);
-  //   })
-  // });
+  it('it should show error on getUsers failure', async () => {
+    mockUserService.getUsers.and.callFake(function () {
+      return throwError(new Error('error'), asyncScheduler);
+    });
+    app.ngOnInit();
+    expect(mockUserService.getUsers).toHaveBeenCalled();
+    await mockUserService.getUsers().subscribe(()=>{}, ()=>{
+      expect(app.dataSource.data).toEqual([]);
+      expect(mockSnackbarMock.open).toHaveBeenCalledWith('error', '', { duration: 10000, panelClass: 'error' });
+    })
+  });
 
 });

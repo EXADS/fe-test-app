@@ -15,8 +15,6 @@ export class UsersTableComponent implements OnInit, AfterViewInit, AfterContentC
   public readonly mobileColumns = ['username', 'fullname'];
   public readonly pageSizes = [5, 10, 20];
   public isMobile: boolean;
-  public subFailed = false;
-  public subSucceeded = false;
   public dataSource = new MatTableDataSource<User>();
   @ViewChild(MatPaginator, { static: false }) paginator: MatPaginator;
 
@@ -31,12 +29,8 @@ export class UsersTableComponent implements OnInit, AfterViewInit, AfterContentC
   ngOnInit(): void {
     this.userService.getUsers().toPromise().then((users: User[]) => {
       this.dataSource.data = users;
-      this.subFailed = false;
-      this.subSucceeded = true;
     }).catch((err: Error) => {
       this.snackBar.open(err.message, '', { duration: 10000, panelClass: 'error' });
-      this.subFailed = true;
-      this.subSucceeded = false;
       console.error(err);
     });
   }
