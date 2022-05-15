@@ -1,0 +1,100 @@
+<!-- Some notes:
+- I do not have the correct icon for the sort. I would normally use Fontawesome to pull in a better and more accurate one.
+- Sorting on 5000 records was not practical so I made a note of that in the sort function.
+- Had to change the angular material theme so threw in some dark mode.
+- "Add new user" button should be disabled until the form is valid -> Made a note on this at the button
+- I would normally ID my elements but as there will be no regression tests I only ID'd what was required
+-->
+
+<!-- 
+    I used this code below in a recent project to handle responsivness but cannot seem to get it working again
+    <span class="" ngClass.xs="blue" ngClass.sm="red" ngClass.md="blue" ngClass.lg="red">hello</span>
+-->
+
+<div class="users-component" [ngClass]="{ 'dark-theme-mode users-component-dark': isDarkTheme }">
+    <div class="content" *ngIf="translations.length > 1">
+        <div class="d-flex top-row">
+            <div class="center">
+                <mat-slide-toggle id="toggle" color="primary" [(ngModel)]="isDarkTheme"
+                    (change)="setDarkThemeMode($event)">
+                    <span class="hide-text">{{translations[0].translate}}</span>
+                </mat-slide-toggle>
+            </div>
+            <span class=" spacer"></span>
+            <a routerLink="create">
+                <button mat-raised-button color="primary" class="primary-button"> {{translations[1].translate}}
+                </button>
+            </a>
+
+            <span class="container-fluid">
+                <mat-paginator class="top-paginator" (page)="handleTopPageEvent($event)"
+                    [pageSizeOptions]="pageSizeOptions">
+                </mat-paginator>
+            </span>
+        </div>
+        <div class="custom-border"></div>
+        <div class="table-container">
+            <table mat-table [dataSource]="sortedData" class="my-table" matSort (matSortChange)="sortData($event)"
+                matSortActive="username" matSortDirection="asc" disableClear="false" disableClear="true">
+                <ng-container matColumnDef="Username">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header="username" disableClear
+                        class="col-2 responsive-min-height">
+                        {{translations[3].translate}}
+                        <span class="my-arrow">↕</span>
+                    </th>
+                    <td mat-cell *matCellDef="let user"> {{user.username}}</td>
+                </ng-container>
+                <ng-container matColumnDef="Full Name">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header="name" disableClear>
+                        {{translations[4].translate}}
+                        <span class="my-arrow">↕</span>
+                    </th>
+                    <td mat-cell *matCellDef="let user"> {{user.first_name}} {{user.last_name}}
+                    </td>
+                </ng-container>
+                <ng-container matColumnDef="Email">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header="email" disableClear>
+                        {{translations[5].translate}} <span class="my-arrow">↕</span></th>
+                    <td mat-cell *matCellDef="let user"> {{user.email}} </td>
+                </ng-container>
+                <ng-container matColumnDef="Status">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header="status" disableClear>
+                        {{translations[6].translate}} <span class="my-arrow">↕</span></th>
+                    <!--
+            A little confused as to why there are 4 status there yet only want to see active/inactive
+            and inactive isn't even in the status table. Added line below to show how I would have shown
+            the statuses by using status table
+        -->
+                    <!-- <td mat-cell *matCellDef="let user">{{statuses[user.id_status].description}}</td> -->
+                    <td mat-cell *matCellDef="let user">
+                        <span class="active" *ngIf="user.id_status == 1">{{translations[15].translate}}</span>
+                        <span class="inactive" *ngIf="user.id_status == 3">{{translations[16].translate}}</span>
+                    </td>
+                </ng-container>
+                <ng-container matColumnDef="Date Created">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header="date" disableClear>
+                        {{translations[7].translate}}
+                        <span class="my-arrow">↕</span>
+                    </th>
+                    <td mat-cell *matCellDef="let user" class="last-col-pad"> {{user.created_date | date:'dd-MM-yyyy' }}
+                    </td>
+                </ng-container>
+                <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
+                <tr mat-row *matRowDef="let row; columns: columnsToDisplay;"></tr>
+            </table>
+        </div>
+        <div class="pag-holder d-flex">
+            <span class="d-flex left-pag-holder">
+                <span class="left-pag-text"> {{translations[8].translate}}
+                    {{showNumber1 }} - {{showNumber2}} / {{numberRecords}}
+                    {{translations[9].translate}}</span>
+            </span>
+            <span class="right-pag-holder">
+                <mat-paginator class="right-pag" (page)="handlePageEvent($event)" [length]="numberRecords"
+                    [pageSizeOptions]="pageSizeOptions" [hidePageSize]="true"
+                    [showFirstLastButtons]="showFirstLastButtons" [pageIndex]="pageNumber">
+                </mat-paginator>
+            </span>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,70 @@
+.create-users-component {
+  height: 100%;
+}
+.create-users-component-dark {
+  background: #424242;
+  color: #ffffff;
+}
+
+.content-create-component {
+  padding-top: 5%;
+  padding-left: 3%;
+  padding-right: 3%;
+}
+
+.form-container {
+  border: 1px solid #dadada;
+  padding-top: 1%;
+  padding-bottom: 1%;
+}
+
+.form-input {
+  cursor: text;
+  caret-color: #acacac;
+}
+
+.buttons-container {
+  width: 100%;
+  padding-left: 0%;
+  padding-right: 0%;
+}
+
+.cancel-button {
+  background: #dadada !important;
+  color: #8a8a8a !important;
+  margin-left: 0% !important;
+}
+
+.new-user-button {
+  background: #dadada !important;
+  color: #fbfbfb !important;
+  margin-right: 0% !important;
+}
+
+.my-row {
+  margin-left: 0px !important;
+  margin-right: 0px !important;
+  padding-right: 0px !important;
+  padding-left: 0px !important;
+}
+
+.row > * {
+  padding-right: 0px !important;
+  padding-left: 0px !important;
+}
+
+::ng-deep .mat-focused .mat-form-field-label {
+  color: #acacac !important;
+  caret-color: #acacac !important;
+}
+
+@media only screen and (max-width: 767px) {
+  .reponsive-padding {
+    padding-top: 20px;
+  }
+
+  .content-create-component {
+    padding-left: 5%;
+    padding-right: 5%;
+  }
+}

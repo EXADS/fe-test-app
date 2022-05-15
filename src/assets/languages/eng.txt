@@ -1,0 +1,25 @@
+[
+{"id":0,"default":"darkMode", "translate":"Dark Mode"},
+{"id":1,"default":"newUser", "translate":"New User"},
+{"id":2,"default":"rows", "translate":"rows"},
+{"id":3,"default":"username", "translate":"Username"},
+{"id":4,"default":"fullName", "translate":"Full Name"},
+{"id":5,"default":"email", "translate":"Email"},
+{"id":6,"default":"status", "translate":"Status"},
+{"id":7,"default":"dateCreated", "translate":"Date Created"},
+{"id":8,"default":"showing", "translate":"Showing"},
+{"id":9,"default":"entries", "translate":"entries"},
+{"id":10,"default":"addNewUser", "translate":"Add New User"},
+{"id":11,"default":"firstName", "translate":"First Name"},
+{"id":12,"default":"lastName", "translate":"Last Name"},
+{"id":13,"default":"optional", "translate":"Optional"},
+{"id":14,"default":"cancel", "translate":"Cancel"},
+{"id":15,"default":"active", "translate":"Active"},
+{"id":16,"default":"inactive", "translate":"Inactive"},
+{"id":17,"default":"beBetween", "translate":"Must be between 3 - 20 characters and not conatin { } [ ] . !"},
+{"id":18,"default":"repeated", "translate":"This username already exists. It can't be repeated"},
+{"id":19,"default":"required", "translate":"Required"},
+{"id":19,"default":"emailRequired", "translate":"Valid Email Required"}
+]
+
+
