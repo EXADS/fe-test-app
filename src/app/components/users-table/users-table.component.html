@@ -1,0 +1,59 @@
+<div #userTableContainer>
+<button id="btn-nav-create-user" color="primary" mat-raised-button style="margin: 20px;" (click)="navigateToCreateUser()">BUTTON.CREATE_USER</button>
+<mat-paginator #paginator id="top-paginator"
+[pageSize]="20"
+[pageSizeOptions]="pageSizes"
+[showFirstLastButtons]="true"
+[hidePageSize]="false"
+(page)="handlePageEvent($event)">
+</mat-paginator>
+
+  <mat-table class="" #usersTable [dataSource]="dataSource">
+    <ng-container matColumnDef="username">
+      <mat-header-cell *matHeaderCellDef>USERS.TABLE.USERNAME</mat-header-cell>
+      <mat-cell *matCellDef="let element">
+          {{element.username}}
+      </mat-cell>
+  </ng-container>
+
+  <ng-container matColumnDef="fullname">
+    <mat-header-cell *matHeaderCellDef>USERS.TABLE.FULLNAME</mat-header-cell>
+    <mat-cell *matCellDef="let element">
+        {{element.first_name}} {{element.last_name}}
+    </mat-cell>
+  </ng-container>
+
+  <ng-container matColumnDef="email">
+    <mat-header-cell *matHeaderCellDef>
+      USERS.TABLE.EMAIL
+       </mat-header-cell>
+    <mat-cell *matCellDef="let element">
+        {{element.email}}
+    </mat-cell>
+  </ng-container>
+
+  <ng-container matColumnDef="status">
+    <mat-header-cell *matHeaderCellDef>
+      USERS.TABLE.STATUS
+       </mat-header-cell>
+    <mat-cell *matCellDef="let element">
+      <div [ngClass]="{'active': element.id_status == 1, 'disabled': element.id_status == 3}" >
+        {{element.id_status == 1 ? 'USERS.ACTIVE' : element.id_status == 3 ? 'USERS.DISABLED' : ''}}
+      </div>
+    </mat-cell>
+  </ng-container>
+
+  <ng-container matColumnDef="created">
+    <mat-header-cell *matHeaderCellDef>
+      USERS.TABLE.CREATED_DATE
+       </mat-header-cell>
+    <mat-cell *matCellDef="let element">
+        {{element.created_date  | date:'yyyy-mm-dd'}}
+    </mat-cell>
+  </ng-container>
+
+
+  <mat-header-row *matHeaderRowDef="isMobile ? mobileColumns : fullScreenColumns"></mat-header-row>
+  <mat-row *matRowDef="let row; columns: isMobile ? mobileColumns : fullScreenColumns;" class="red"></mat-row>
+  </mat-table>
+</div>
