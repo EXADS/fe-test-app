@@ -1,3 +1,76 @@
+html,
+body {
+  height: 100%;
+}
+body {
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+}
 
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+.center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.right {
+  float: right;
+}
+
+.primary-button {
+  font-size: 18px !important;
+  font-weight: 300 !important;
+  width: auto !important;
+  margin: 10px 8px !important;
+  border: 1px solid #ffffff00;
+  box-shadow: none !important;
+}
+.primary-button .dark-theme-mode {
+  border: 1px solid #ffffff !important;
+}
+
+.overlay {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  z-index: 999;
+}
+
+.content {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+}
+
+.invisible {
+  visibility: hidden;
+  width: 0%;
+
+  -webkit-touch-callout: none;
+  /* iOS Safari */
+  -webkit-user-select: none;
+  /* Safari */
+  -khtml-user-select: none;
+  /* Konqueror HTML */
+  -moz-user-select: none;
+  /* Old versions of Firefox */
+  -ms-user-select: none;
+  /* Internet Explorer/Edge */
+  user-select: none;
+  /* Non-prefixed version, currently
+                                supported by Chrome, Edge, Opera and Firefox */
+}
+//Angular Material Theme Overide
+
+//Override the ripple effect (underline)
+.mat-form-field-ripple {
+  /*change color of underline when focused*/
+  background-color: #acacac !important;
+}
+
+.mat-form-field.mat-focused .mat-form-field-ripple {
+  background-color: #acacac !important;
+}
+.mat-select-arrow {
+  color: #acacac !important;
+}

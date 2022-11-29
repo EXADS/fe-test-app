@@ -1,0 +1,54 @@
+@import "~@angular/material/theming";
+@include mat-core();
+
+//Not going in depth on palette
+$custom-primary: (
+  50: #3c92c4,
+  100: #3c92c4,
+  200: #3c92c4,
+  300: #3c92c4,
+  400: #3c92c4,
+  500: #3c92c4,
+  600: #3c92c4,
+  700: #3c92c4,
+  800: #3c92c4,
+  900: #3c92c4,
+  A100: #3c92c4,
+  A200: #3c92c4,
+  A400: #3c92c4,
+  A700: #3c92c4,
+  contrast: (
+    50: #ffffff,
+    100: #ffffff,
+    200: #ffffff,
+    300: #ffffff,
+    400: #ffffff,
+    500: #ffffff,
+    600: #ffffff,
+    700: #ffffff,
+    800: #ffffff,
+    900: #ffffff,
+    A100: #ffffff,
+    A200: #ffffff,
+    A400: #ffffff,
+    A700: #ffffff,
+  ),
+);
+
+$theme-primary: mat-palette($custom-primary);
+$theme-accent: mat-palette($mat-pink, A200, A100, A400);
+$theme-warn: mat-palette($mat-red);
+
+$theme-theme: mat-light-theme($theme-primary, $theme-accent, $theme-warn);
+
+@include angular-material-theme($theme-theme);
+
+//Dark mode
+$dark-primary: mat-palette($custom-primary);
+$dark-accent: mat-palette($mat-red, A200, A100, A400);
+$dark-warn: mat-palette($mat-deep-orange);
+$dark-theme: mat-dark-theme($dark-primary, $dark-accent, $dark-warn);
+
+.dark-theme-mode {
+  @include angular-material-theme($dark-theme);
+}
